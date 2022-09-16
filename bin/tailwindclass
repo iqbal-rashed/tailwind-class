@@ -1,3 +1,39 @@
 #!/usr/bin/env node
 
-const {} = require("commander");
+const { Option, program } = require("commander");
+const fs = require("fs");
+const path = require("path");
+const app = require("../app");
+
+program
+    .addOption(
+        new Option("-d, --dir [type...]", "Select directory")
+            .preset("/")
+            .default(["/"])
+    )
+    .addOption(
+        new Option("-t, --type [type...]", "Select ext type example: .jsx")
+            .preset(".jsx")
+            .default([".jsx"])
+    )
+    .addOption(new Option("-o, --output [type]", "Select output file path"))
+    .parse();
+
+const options = program.opts();
+
+if (!options.output) {
+    console.log("Output path must be include");
+    process.exit(1);
+}
+
+if (!fs.existsSync(path.join(process.cwd(), options.output))) {
+    console.log("Output file not exist");
+    process.exit(1);
+}
+
+const jsonFilePath = path.join(process.cwd(), "classes.json");
+if (!fs.existsSync(jsonFilePath)) {
+    fs.writeFileSync(jsonFilePath, "");
+}
+
+app(options);

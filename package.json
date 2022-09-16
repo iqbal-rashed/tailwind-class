@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "bin": {
+    "tailwindclass":"./bin/tailwindclass"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iqbal-rashed/tailwind-class"
+  },
+  "author": "Rashed Iqbal",
   "dependencies": {
     "chalk": "4.1.2",
     "chokidar": "^3.5.3",
